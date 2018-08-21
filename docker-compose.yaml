@@ -1,0 +1,56 @@
+version: "3"
+
+services:  
+
+  cli:
+    image: busybox 
+    container_name: cli-busybox
+    stdin_open: true
+    tty: true
+    
+  manager:
+    image: masget/fabric-chaincode-deploy:0.2
+    container_name: fabric-chaincode-deploy
+    environment:      
+      # 请求主机IP地址
+      #- HYPERLEDGER_FABRIC_SDK_COMMONS_NETWORK_HOST=localhost
+      #- HYPERLEDGER_FABRIC_SDK_COMMONS_NETWORK_HOST=127.0.0.1
+      #- HYPERLEDGER_FABRIC_SDK_COMMONS_NETWORK_HOST=192.168.33.73
+      #- HYPERLEDGER_FABRIC_SDK_COMMONS_NETWORK_HOST=masterhost      
+      # windows & mac
+      #- HYPERLEDGER_FABRIC_SDK_COMMONS_NETWORK_HOST=host.docker.internal
+
+      # 配置文件
+      - HYPERLEDGER_FABRIC_SDK_COMMONS_CONFIG=fabric-chaincode.produce.properties
+      - HYPERLEDGER_FABRIC_SDK_KV_STORE_CONFIG=/var/fabric/config/fabric-kv-store.properties
+    
+    volumes:
+      - /var/log4j:/var/log4j
+      - /var/fabric/config:/var/fabric/config
+      - /opt/gopath/src/github.com/hyperledger/fabric/network_resources/dev/basic:/network_resources/dev/basic
+    
+    #external_links:
+    #  - ca-peerOrg1:ca.org1.com
+    #  - ca-peerOrg2:ca.org2.com
+    #  - orderer.example.com:orderer.example.com
+    #  - peer0.org1.example.com:peer0.org1.example.com
+    #  - peer0.org2.example.com:peer0.org2.example.com
+    #  - peer1.org1.example.com:peer1.org1.example.com
+    #  - peer1.org2.example.com:peer1.org2.example.com
+    #  - configtxlator:configtxlator
+    
+    # 使用外部网络
+    #networks:
+    #  - blockchain_net
+
+    # 添加 host 映射配置
+    #extra_hosts:
+    #  - "masterhost:192.168.33.73"
+
+    # 可以访问宿主主机中能访问的网络
+    #network_mode: "host"
+
+#networks:
+#  blockchain_net:
+#    external:
+#      name: fabric_blockchain_net
