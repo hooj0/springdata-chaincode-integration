@@ -1,0 +1,16 @@
+version: "3"
+
+services:  
+
+  manager:
+    # 使用外部网络
+    networks:
+      - blockchain_net
+    environment:      
+      # 配置文件
+      - HYPERLEDGER_FABRIC_SDK_COMMONS_CONFIG=/var/fabric/config/fabric-chaincode.produce-safe.properties
+
+networks:
+  blockchain_net:
+    external:
+      name: basic_default
