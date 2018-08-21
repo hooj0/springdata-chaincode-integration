@@ -1,0 +1,10 @@
+version: "3"
+
+services:  
+
+  manager:
+    network_mode: "host"
+    environment:      
+      - HYPERLEDGER_FABRIC_SDK_COMMONS_NETWORK_HOST=localhost
+      - HYPERLEDGER_FABRIC_SDK_COMMONS_CONFIG=fabric-chaincode.produce.properties
+
