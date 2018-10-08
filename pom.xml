@@ -1,0 +1,223 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<!-- 
+		@changelog releases spring data fabric chaincode v1.0.1
+	-->
+	 
+	<groupId>springdata.chaincode</groupId>
+	<artifactId>springdata-chaincode-integration</artifactId>
+	<version>1.0</version>
+
+	<packaging>jar</packaging>
+
+	<name>Spring Data Hyperledger Fabric Chaincode SDK Integration Examples</name>
+	<description>Integrate hyperledger fabric blockchain with springdata chaincode framework.</description>
+	<url>https://github.com/hooj0/springdata-chaincode-integration</url>
+
+	<licenses>
+		<license>
+			<name>Apache License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+
+	<developers>
+		<developer>
+			<name>Master Developers</name>
+			<email>hoojo_@126.com</email>
+		</developer>
+	</developers>
+
+	<scm>
+		<connection>scm:git:github.com/hooj0/springdata-chaincode-integration.git</connection>
+		<developerConnection>scm:git:github.com/hooj0/springdata-chaincode-integration.git</developerConnection>
+		<url>https://github.com/hooj0/springdata-chaincode-integration.git</url>
+	</scm>
+
+	<properties>
+		<!-- compiler -->
+		<java.version>1.8</java.version>
+
+		<!-- Spring -->
+		<spring-framework.version>5.0.2.RELEASE</spring-framework.version>
+		<spring-data.version>2.1.0-build</spring-data.version>
+
+		<cdi.version>1.0</cdi.version>
+		<lombok.version>1.18.0</lombok.version>
+		<joda-time.version>2.10</joda-time.version>
+		<jackson.version>2.9.6</jackson.version>
+
+		<!-- google -->
+		<guava.version>25.1-jre</guava.version>
+
+		<!-- apache -->
+		<commons-lang.version>3.7</commons-lang.version>
+
+		<!-- Logging -->
+		<logback.version>1.0.13</logback.version>
+		<slf4j.version>1.7.5</slf4j.version>
+		<jansi.version>1.17.1</jansi.version>
+
+		<!-- Test -->
+		<junit.version>4.12</junit.version>
+
+		<!-- Fabric SDKs Commons -->
+		<fabric-sdk-commons.version>1.1.2</fabric-sdk-commons.version>
+		<spring-data-fabric-chaincode.version>1.1.2</spring-data-fabric-chaincode.version>
+	</properties>
+
+	<modules>
+		<module>springdata-chaincode-integration</module>
+	</modules>
+	
+	<dependencies>
+	
+		<!-- spring-data-fabric-chaincode -->
+		<dependency>
+			<groupId>spring.data.fabric.chaincode</groupId>
+			<artifactId>spring-data-fabric-chaincode</artifactId>
+			<version>${spring-data-fabric-chaincode.version}</version>
+		</dependency>
+		
+		<!-- Logging with SLF4J & LogBack -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>${slf4j.version}</version>
+			<scope>compile</scope>
+		</dependency>
+		
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+			<version>${logback.version}</version>
+			<scope>compile</scope>
+		</dependency>
+		
+		<!-- log color jansi -->
+		<dependency>
+		    <groupId>org.fusesource.jansi</groupId>
+		    <artifactId>jansi</artifactId>
+		    <version>${jansi.version}</version>
+			<scope>compile</scope>
+		</dependency>
+		
+		<!-- Test Artifacts -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>${spring-framework.version}</version>
+			<scope>test</scope>
+		</dependency>
+		
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>${junit.version}</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<resources>
+			<resource>
+				<filtering>false</filtering>
+				<directory>src/main/resources</directory>
+				<includes>
+					<include>**/*.properties</include>
+				</includes>
+				<excludes>
+					<exclude>test/**</exclude>
+				</excludes>
+			</resource>
+		</resources>
+
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.3</version>
+				<configuration>
+					<encoding>UTF-8</encoding>
+					<source>${java.version}</source>
+					<target>${java.version}</target>
+				</configuration>
+			</plugin>
+			
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<version>3.0.1</version>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			
+			<plugin>
+				<groupId>org.projectlombok</groupId>
+				<artifactId>lombok-maven-plugin</artifactId>
+				<version>1.18.0.0</version>
+				<configuration>
+					<addOutputDirectory>false</addOutputDirectory>
+					<sourceDirectory>${project.basedir}/src/main/java</sourceDirectory>
+				</configuration>
+			</plugin>
+			
+			<!-- jib 构建 docker 镜像 -->
+			<plugin>
+				<groupId>com.google.cloud.tools</groupId>
+				<artifactId>jib-maven-plugin</artifactId>
+				<version>0.9.8</version>
+
+				<configuration>
+					<!-- 依赖的基础镜像，这里会从 docker hub中拉取该镜像 -->
+					<from>
+						<image>registry.cn-hangzhou.aliyuncs.com/hoojo/openjdk:8</image>
+					</from>
+					<to>
+						<!-- 当前发布镜像的仓库：名称：版本-->
+						<image>hoojo/fabric-chaincode-integration:1.0</image>
+						<!-- <image>registry.cn-hangzhou.aliyuncs.com/hoojo/fabric-chaincode-integration:1.0</image> -->
+						<auth>
+					      <username>${env.REGISTRY_USERNAME}</username>
+					      <password>${env.REGISTRY_PASSWORD}</password>
+					    </auth>
+					</to>
+					<!-- 当前镜像运行的容器配置，从镜像 构建 容器  -->
+					<container>
+						<!-- JVM 的基本配置 -->
+						<jvmFlags>
+							<jvmFlag>-Xms512m</jvmFlag>
+							<jvmFlag>-Xdebug</jvmFlag>
+							<!-- <jvmFlag>-Xmy:flag=jib-rules</jvmFlag> -->
+						</jvmFlags>
+						<!-- 启动容器后提供的main 函数对应的入口类  -->
+						<mainClass>com.masget.chaincode.transfer.App</mainClass>
+						<!-- main 函数类需要的参数 -->
+						<!-- <args>
+							<arg>some</arg>
+							<arg>args</arg>
+						</args> -->
+						<!-- 容器运行后暴露的端口 -->
+						<!-- <ports>
+							<port>1000</port>
+							<port>2000-2003/udp</port>
+						</ports> -->
+						<!-- 镜像构建容器的格式 -->
+						<!-- <format>OCI</format> -->
+					</container>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+	
+</project>
