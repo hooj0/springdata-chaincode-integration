@@ -9,7 +9,7 @@ services:
     tty: true
     
   manager:
-    image: masget/fabric-chaincode-deploy:0.2
+    image: chaincode/fabric-chaincode-deploy:0.2
     container_name: fabric-chaincode-deploy
     environment:      
       # 请求主机IP地址
