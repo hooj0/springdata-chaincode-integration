@@ -26,8 +26,8 @@ function install() {
 		docker rm --force fabric-chaincode-deploy
   	fi
 
-	log purple "===> docker image rm masget/fabric-chaincode-deploy:0.2"
-	docker image rm masget/fabric-chaincode-deploy:0.2
+	log purple "===> docker image rm chaincode/fabric-chaincode-deploy:0.2"
+	docker image rm chaincode/fabric-chaincode-deploy:0.2
 	
 	log purple "===> docker load --input jib-image.tar"
 	docker load --input /tmp/jib-image.tar
@@ -40,7 +40,7 @@ function up() {
 	#HYPERLEDGER_FABRIC_SDK_COMMONS_CONFIG="produce/fabric-chaincode.properties"
 	#HYPERLEDGER_FABRIC_SDK_KV_STORE_CONFIG="produce/fabric-kv-store.properties"
 	#HYPERLEDGER_FABRIC_SDK_COMMONS_NETWORK_HOST=localhost
-	#docker run -e HYPERLEDGER_FABRIC_SDK_COMMONS_NETWORK_HOST=localhost -it --rm --name fabric-chaincode-deploy masget/fabric-chaincode-deploy:0.1
+	#docker run -e HYPERLEDGER_FABRIC_SDK_COMMONS_NETWORK_HOST=localhost -it --rm --name fabric-chaincode-deploy chaincode/fabric-chaincode-deploy:0.1
 	
 	# start
 	log purple "===> docker-compose -f docker-compose.yaml -f docker-compose-net.yaml up"
