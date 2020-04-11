@@ -19,7 +19,7 @@ import io.github.hooj0.springdata.fabric.chaincode.repository.DeployChaincodeRep
  * @email hoojo_@126.com
  * @version 1.0
  */
-@Chaincode(channel = "articlechannel", org = "peerOrg2", name = "article", type = Type.GO_LANG, version = "v0.1", path = "masget.com/article_cc")
+@Chaincode(channel = "articlechannel", org = "peerOrg2", name = "article", type = Type.GO_LANG, version = "v0.1", path = "hoojo.com/article_cc")
 public interface ArticleRepository extends DeployChaincodeRepository<ArticleEntity> {
 
 	@Install(chaincodeLocation = "chaincode/go/article/v0.1")
