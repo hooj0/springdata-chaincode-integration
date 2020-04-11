@@ -52,7 +52,7 @@ public abstract class ChaincodeConfiguration extends AbstractChaincodeConfigurat
 	}
 	
 	static {
-		//FabricConfigurationPropertyKey.COMMONS_PREFIX = "masget.blockchain.fabric.";
+		//FabricConfigurationPropertyKey.COMMONS_PREFIX = "com.blockchain.fabric.";
 	}
 	
 	@Autowired
